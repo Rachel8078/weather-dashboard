@@ -11,27 +11,32 @@
 </head>
 <body>
     <header>
-        <h1 class="title">Weather Dashboard</h1>
+        <h1 class="title box">Weather Dashboard</h1>
     </header>
-    <main class="columns is-multiline">
-        <div class="column is-one-quarter">
-            <h2 class="">Search for a City:</h2>
-            <form>
-                <input class="input is-small block" name="city" id="city" type="text">
+    <main class="columns is-multiline is-8 is-variable">
+        <div class="column is-3 box ">
+            <form id="search-form">
+                <label class="form-label" for="city-search">Search for a City:</label>
+                <input class="input is-small" name="city-search" id="city-search" type="text" autofocus="true">
                 <button type="submit" class="button is-info is-small is-fullwidth block">Search</button>
             </form>
         </div>
-        <div class=" column is-three-quarters box">
-            <h2 class="">Searched City Weather Output:</h2>
+        
+        <div id="current-weather" class="column is-9 box">
+            <h2 id="current-city">Searched City Weather Output:<span id="date"></span></h2>
+            <div ></div>
+            
         </div>
-        <div class="column is-one-quarter">
+        
+        <div class="column is-3 box">
             <h2 class="">Previous Searches:</h2>
 
         </div>
-        <div class="columns">
+
+        <div id="forecast" class="columns is-variable is-9">
             <div class="column">
             <h2 class="block">5 Day Forecast:</h2>
-            <div class="column box is-narrow"></div>
+            <div class="column box"></div>
             <div class="column box"></div>
             <div class="column box"></div>
             <div class="column box"></div>
@@ -40,6 +45,7 @@
         </div>
 
     </main>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="assets/js/script.js"></script>
 </body>
 </html>
