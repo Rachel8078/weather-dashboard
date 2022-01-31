@@ -4,46 +4,34 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link rel="stylesheet" href="assets/css/style.css">
     
     <title>Weather Dashboard</title>
 </head>
-<body>
+<body class="container">
     <header>
-        <h1 class="title box">Weather Dashboard</h1>
+        <h1>Weather Dashboard</h1>
     </header>
-    <main class="columns is-multiline is-8 is-variable">
-        <div class="column is-3 box ">
-            <form id="search-form">
-                <label class="form-label" for="city-search">Search for a City:</label>
-                <input class="input is-small" name="city-search" id="city-search" type="text" autofocus="true">
-                <button type="submit" class="button is-info is-small is-fullwidth block">Search</button>
+    <main class="row">
+        <div class="col-4">
+            <form class="" id="search-form">
+                <label id="search-label" class="" for="city-search">Search for a City:</label>
+                <input class="form-control" name="city-search" id="city-search" type="text" autofocus="true">
+                <button id="search-btn" type="submit" class="">Search</button>
             </form>
         </div>
         
-        <div id="current-weather" class="column is-9 box">
-            <h2 id="current-city">Searched City Weather Output:<span id="date"></span></h2>
-            <div ></div>
-            
+        <div id="current-weather" class="col-8">
+            <h2 id="current-city">Searched City Weather Output:<span id="date"></span></h2> 
         </div>
         
-        <div class="column is-3 box">
-            <h2 class="">Previous Searches:</h2>
+        <div id="previous-searches" class="col-4"></div>
 
+        <div class="col-8">
+            <h2>5 Day Forecast:</h2>
+            <div id="forecast"></div>
         </div>
-
-        <div id="forecast" class="columns is-variable is-9">
-            <div class="column">
-            <h2 class="block">5 Day Forecast:</h2>
-            <div class="column box"></div>
-            <div class="column box"></div>
-            <div class="column box"></div>
-            <div class="column box"></div>
-            <div class="column box"></div>
-            </div>
-        </div>
-
     </main>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="assets/js/script.js"></script>

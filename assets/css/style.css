@@ -1,0 +1,83 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+header {
+    margin-bottom: 20px;
+    padding: 5px;
+    text-align: center;
+    background-image: linear-gradient(to right, #3563c5 10%, #1717ca, #08083f 60%);
+}
+
+h1 {
+    color: white;
+}
+
+h2 {
+    font-size: large;
+    font-weight: bold;
+    margin-top: 15px;
+}
+
+#current-weather {
+    border-style: solid;
+    border-width: 1px;
+}
+
+button {
+    width: 100%;
+    margin: 10px 0 0 0;
+    border-radius: 3px;
+    border: none;
+    background-color: #9d9da0;
+    font-size: small;
+}
+
+#search-btn {
+    background-color: #4f9cdf;
+    color: white;
+    margin-bottom: 10px;
+}
+
+.prev-searches {
+    border-top: solid;
+    border-color: #9d9da0;
+    border-width: 2px;
+}
+
+label {
+    font-weight: bold;
+    font-size: large;
+}
+
+.column {
+    float: left;
+    width: 20%;
+    padding: 0 10px;
+}
+
+.row {
+    margin: 0 -5px;
+}
+
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.card {
+    background-color: #0d302c;
+    color: white;
+    margin: 5px;
+    width: auto
+}
+
+p {
+    margin: 5px 0 0 0;
+    font-size: small;
+}
+
+#forecast {
+    column-count: 5;
+}

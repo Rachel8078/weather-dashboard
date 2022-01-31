@@ -1,4 +1,3 @@
-// var city = "Seattle"
 var searchFormEl = document.querySelector("#search-form");
 var cityInputEl = document.querySelector("#city-search");
 var currentWeatherEl = document.querySelector("#current-weather");
@@ -6,6 +5,44 @@ var currentDate = document.querySelector("#date");
 var forecastEl = document.querySelector("#forecast");
 var today = new Date();
 var date = (today.getMonth()+1) + "/" + today.getDate() + "/" + today.getFullYear();
+var prevSearchesEl = document.querySelector("#previous-searches")
+var cityBtn = document.querySelector(".city-button");
+
+var searchedCities = [];
+
+// load saved tasks from localStorage
+var loadPrevious = function() {
+    searchedCities = localStorage.getItem("cities");
+    searchedCities = JSON.parse(searchedCities);
+    createPrevSearchListEl(searchedCities);
+}
+
+var createPrevSearchListEl = function() {
+    for (let i = 0; i < searchedCities.length; i++) {
+        console.log("inside createPrevSearchList for-loop");
+        var city = searchedCities[i];
+
+        // create a container
+        var prevCityEl = document.createElement("div");
+        prevCityEl.classList = "prev-searches";
+
+        // create an element for city
+        var prevCity = document.createElement("button");
+        prevCity.textContent = city;
+        prevCity.classList = "city-button";
+
+
+        // append to container
+        prevCityEl.appendChild(prevCity);
+
+        // append to dom
+        prevSearchesEl.appendChild(prevCityEl);        
+    }
+};
+
+var savedSearches = function(city) {
+    localStorage.setItem("cities", JSON.stringify(searchedCities));
+}
 
 var getCityWeather = function(city) {
     // format the openweather api url 
@@ -17,8 +54,6 @@ var getCityWeather = function(city) {
             displayWeather(data);
         });
     });
-
-
 };
 
 var getForecast = function(city) {
@@ -27,12 +62,23 @@ var getForecast = function(city) {
 
     // fetch 5-day forecast
     fetch(apiForecast).then(function(response) {
+        if (response.ok) {
         response.json().then(function(data) {
             displayForecast(data);
             console.log(data);
-        });
-    });
-}
+            
+    })}
+})};
+
+var cityButtonHandler = function(event) {
+    console.log(cityBtn.value);
+    var city = cityBtn.value;
+
+    if(city) {
+        getCityWeather(city);
+        getForecast(city);
+    }
+};
 
 var formSubmitHandler = function(event) {
     event.preventDefault();
@@ -44,6 +90,8 @@ var formSubmitHandler = function(event) {
         getCityWeather(city);
         getForecast(city);
         cityInputEl.value = "";
+        searchedCities.push(city);
+        savedSearches();
     } else {
         alert("Please enter a valid city name");
     }
@@ -53,29 +101,42 @@ var displayForecast = function(data) {
     // clear old content
     forecastEl.textContent = ""; 
 
-    var day1 = data.list[3].dt_txt;
-    console.log(day1.slice(0,10));
-    var day1temp = data.list[3].main.temp;
-    console.log(day1temp);
-    var day1wind = data.list[3].wind.speed;
-    console.log(day1wind);
-    var day1humidity = data.list[3].main.humidity;
-    console.log(day1humidity);
-    var day1icon = data.list[3].weather[0].icon;
-    console.log(day1icon);
+    for (var i = 0; i < data.list.length; i=i+8) {
+        console.log("inside displayForecast for-loop");
+        var day = data.list[i].dt_txt;
+        var temp = data.list[i].main.temp;
+        var wind = data.list[i].wind.speed;
+        var humidity = data.list[i].main.humidity;
+        var icon = data.list[i].weather[0].icon;
 
-    var day2 = data.list[11].dt_txt;
-    console.log(day2);
-    var day2temp = data.list[11].main.temp;
-    console.log(day2temp);
-    var day2wind = data.list[11].wind.speed;
-    console.log(day2wind);
-    var day2humidity = data.list[11].main.humidity;
-    console.log(day2humidity);
-    var day2icon = data.list[11].weather[0].icon;
-    console.log(day2icon);
+        // create a container for each day
+        var forecast5DayEl = document.createElement("div");
+        forecast5DayEl.classList = "card";
 
-}
+        // create a p element for each data item
+        var forecastDayEl = document.createElement("p");
+        forecastDayEl.textContent = day;
+        var forecastIconEl = document.createElement("p");
+        forecastIconEl.textContent = icon;
+        var forecastTempEl = document.createElement("p");
+        forecastTempEl.textContent = "Temp: " + temp + " degrees F";
+        var forecastWindEl = document.createElement("p");
+        forecastWindEl.textContent = "Wind: " + wind + " MPH";
+        var forecastHumidityEl = document.createElement("p");
+        forecastHumidityEl.textContent = "Humidity: " + humidity + "%";
+        
+
+        // append to container
+        forecast5DayEl.appendChild(forecastDayEl);
+        forecast5DayEl.appendChild(forecastIconEl);
+        forecast5DayEl.appendChild(forecastTempEl);
+        forecast5DayEl.appendChild(forecastWindEl);
+        forecast5DayEl.appendChild(forecastHumidityEl);
+
+        // append container to the dom
+        forecastEl.appendChild(forecast5DayEl);
+    };
+};
 
 var displayWeather = function(data) {
     // clear old content
@@ -93,7 +154,7 @@ var displayWeather = function(data) {
     
     // create a p
     var cityEl = document.createElement("h2");
-    cityEl.textContent = city + "(" + date + ")" + icon;
+    cityEl.textContent = city + " (" + date + ") " + icon;
     var tempEl = document.createElement("p");
     tempEl.textContent = "Temperture: " + temp + " degrees F";
     var windEl = document.createElement("p");
@@ -113,4 +174,6 @@ var displayWeather = function(data) {
 
 searchFormEl.addEventListener("submit", formSubmitHandler);
 
+loadPrevious();
 
+cityBtn.addEventListener("click", cityButtonHandler);
