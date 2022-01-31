@@ -108,18 +108,19 @@ var displayForecast = function(data) {
         var wind = data.list[i].wind.speed;
         var humidity = data.list[i].main.humidity;
         var icon = data.list[i].weather[0].icon;
+        var iconUrl = "http://openweathermap.org/img/w/" + icon + ".png"
 
         // create a container for each day
         var forecast5DayEl = document.createElement("div");
-        forecast5DayEl.classList = "card";
+        //forecast5DayEl.classList = "card";
 
         // create a p element for each data item
         var forecastDayEl = document.createElement("p");
         forecastDayEl.textContent = day;
-        var forecastIconEl = document.createElement("p");
-        forecastIconEl.textContent = icon;
+        var forecastIconEl = document.createElement("img");
+        forecastIconEl.setAttribute('src', iconUrl)
         var forecastTempEl = document.createElement("p");
-        forecastTempEl.textContent = "Temp: " + temp + " degrees F";
+        forecastTempEl.textContent = "Temp: " + temp + "\u00B0F";
         var forecastWindEl = document.createElement("p");
         forecastWindEl.textContent = "Wind: " + wind + " MPH";
         var forecastHumidityEl = document.createElement("p");
@@ -147,6 +148,7 @@ var displayWeather = function(data) {
     var wind = data.list[0].wind.speed;
     var humidity = data.list[0].main.humidity;
     var icon = data.list[0].weather[0].icon;
+    var iconUrl = "http://openweathermap.org/img/w/" + icon + ".png"
 
     // create a container
     var currentConditionsEl = document.createElement("div");
@@ -154,15 +156,18 @@ var displayWeather = function(data) {
     
     // create a p
     var cityEl = document.createElement("h2");
-    cityEl.textContent = city + " (" + date + ") " + icon;
+    cityEl.textContent = city + " (" + date + ") ";
+    var iconEl = document.createElement("img");
+    iconEl.setAttribute("src", iconUrl);
     var tempEl = document.createElement("p");
-    tempEl.textContent = "Temperture: " + temp + " degrees F";
+    tempEl.textContent = "Temperture: " + temp + "\u00B0F";
     var windEl = document.createElement("p");
     windEl.textContent = "Wind Speed: " + wind + " MPH"
     var humidEl = document.createElement("p");
     humidEl.textContent = "Humidity: " + humidity + "%";
 
     // append to container
+    cityEl.appendChild(iconEl);
     currentConditionsEl.appendChild(cityEl);
     currentConditionsEl.appendChild(tempEl);
     currentConditionsEl.appendChild(windEl);

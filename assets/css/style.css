@@ -1,5 +1,6 @@
 body {
     font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
 }
 
 header {
@@ -16,7 +17,7 @@ h1 {
 h2 {
     font-size: large;
     font-weight: bold;
-    margin-top: 15px;
+    margin-top: 5px;
 }
 
 #current-weather {
@@ -74,10 +75,18 @@ label {
 }
 
 p {
-    margin: 5px 0 0 0;
+    margin: 0 0 0 0;
     font-size: small;
 }
 
 #forecast {
     column-count: 5;
+    column-gap: 3px;
+    column-width: auto;
+    column-span: all;
 }
+
+img {
+    width: 50px;
+}
+
