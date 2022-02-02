@@ -18,6 +18,7 @@ h2 {
     font-size: large;
     font-weight: bold;
     margin-top: 5px;
+    padding-bottom: 5px;
 }
 
 #current-weather {
@@ -51,42 +52,32 @@ label {
     font-size: large;
 }
 
-.column {
-    float: left;
-    width: 20%;
-    padding: 0 10px;
-}
-
-.row {
-    margin: 0 -5px;
-}
-
-.row:after {
-    content: "";
-    display: table;
-    clear: both;
-}
-
-.card {
-    background-color: #0d302c;
-    color: white;
-    margin: 5px;
-    width: auto
-}
-
 p {
-    margin: 0 0 0 0;
+    margin: 5px 0 5px 0 ;
     font-size: small;
 }
 
 #forecast {
     column-count: 5;
     column-gap: 3px;
-    column-width: auto;
-    column-span: all;
 }
 
 img {
-    width: 50px;
+    width: 30px;
 }
 
+.forecastdays {
+    background-color: #294642;
+    color: white;
+    padding-bottom: 10px;
+}
+
+.forecastdt {
+    font-weight: bold;
+    padding-top: 5px;
+    
+}
+
+.forecasthumid {
+    padding-bottom: 20px;
+}
