@@ -40,7 +40,7 @@ var savedSearches = function(city) {
 
 var getCityWeather = function(city) {
     // format the openweather api url 
-    var apiUrl = "http://api.openweathermap.org/data/2.5/find?q=" + city + "&units=imperial&appid=27a59f8bd30e6e7abc6922ea28ba664e";
+    var apiUrl = "https://api.openweathermap.org/data/2.5/find?q=" + city + "&units=imperial&appid=27a59f8bd30e6e7abc6922ea28ba664e";
 
     // make a request to the url
     fetch(apiUrl).then(function(response) {
@@ -53,7 +53,7 @@ var getCityWeather = function(city) {
 
 var getForecast = function(city) {
     // format the openweather api url
-    var apiForecast = "http://api.openweathermap.org/data/2.5/forecast?q=" + city + "&units=imperial&appid=27a59f8bd30e6e7abc6922ea28ba664e";
+    var apiForecast = "https://api.openweathermap.org/data/2.5/forecast?q=" + city + "&units=imperial&appid=27a59f8bd30e6e7abc6922ea28ba664e";
 
     // fetch 5-day forecast
     fetch(apiForecast).then(function(response) {
@@ -94,7 +94,7 @@ var displayForecast = function(data) {
         var wind = data.list[i].wind.speed;
         var humidity = data.list[i].main.humidity;
         var icon = data.list[i].weather[0].icon;
-        var iconUrl = "http://openweathermap.org/img/w/" + icon + ".png"
+        var iconUrl = "https://openweathermap.org/img/w/" + icon + ".png"
 
         // create a container for each day
         var forecast5DayEl = document.createElement("div");
@@ -135,7 +135,7 @@ var displayWeather = function(data) {
     var wind = data.list[0].wind.speed;
     var humidity = data.list[0].main.humidity;
     var icon = data.list[0].weather[0].icon;
-    var iconUrl = "http://openweathermap.org/img/w/" + icon + ".png"
+    var iconUrl = "https://openweathermap.org/img/w/" + icon + ".png"
 
     // create a container
     var currentConditionsEl = document.createElement("div");
