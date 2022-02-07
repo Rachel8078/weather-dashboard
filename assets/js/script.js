@@ -6,36 +6,31 @@ var forecastEl = document.querySelector("#forecast");
 var today = new Date();
 var date = (today.getMonth()+1) + "/" + today.getDate() + "/" + today.getFullYear();
 var prevSearchesEl = document.querySelector("#previous-searches")
-var cityBtnEl = document.getElementsByClassName("city-btn");
-
 var searchedCities = [];
 
 // load saved tasks from localStorage
 var loadPrevious = function() {
-    searchedCities = localStorage.getItem("cities");
-    searchedCities = JSON.parse(searchedCities);
-    createPrevSearchListEl(searchedCities);
+    searchedCities = JSON.parse(localStorage.getItem("cities")) || [];
 }
 
 var createPrevSearchListEl = function() {
+    // create a container
+    var prevCityEl = document.createElement("div");
+    prevCityEl.classList = "prev-searches";
+
     for (let i = 0; i < searchedCities.length; i++) {
         var city = searchedCities[i];
 
-        // create a container
-        var prevCityEl = document.createElement("div");
-        prevCityEl.classList = "prev-searches";
-
-        // create an element for city
+        // create a button for each city
         var prevCity = document.createElement("button");
         prevCity.textContent = city;
-        prevCity.classList = "city-btn";
-
+        prevCity.addEventListener("click", cityBtnHandler);
 
         // append to container
         prevCityEl.appendChild(prevCity);
 
         // append to dom
-        prevSearchesEl.appendChild(prevCityEl);        
+        prevSearchesEl.appendChild(prevCityEl);  
     }
 };
 
@@ -75,21 +70,19 @@ var formSubmitHandler = function(event) {
     var city = cityInputEl.value.trim();
 
     if(city) {
-
-        cityInputEl.value = "";
-        searchedCities.push(city);
+        searchedCities.unshift(city);
         savedSearches();
+        getCityWeather(city);
+        getForecast(city);
+        cityInputEl.value = "";
+        // loadPrevious();
+        // createPrevSearchListEl();
+
     } else {
         alert("Please enter a valid city name");
     }
+
 };
-
-var cityButtonHandler = function() {
-        getCityWeather(this.firstChild);
-        getForecast(this.firstChild);
-    }
-
-
 
 var displayForecast = function(data) {
     // clear old content
@@ -171,12 +164,16 @@ var displayWeather = function(data) {
     currentWeatherEl.appendChild(currentConditionsEl);
 }
 
+var cityBtnHandler = function(event) {
+    // when the city buttons are clicked, that city weather will load
+    if (event.target.nodeName == "BUTTON") {
+        var city = event.target.textContent;
+        console.log(city);
+    }
+    getCityWeather(city);
+    getForecast(city);
+};
 
 searchFormEl.addEventListener("submit", formSubmitHandler);
-
 loadPrevious();
-
-cityBtnEl.addEventListener("click", cityButtonHandler);
-
-
-
+createPrevSearchListEl();
